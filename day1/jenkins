@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Checkout Main') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Mohammad-Mustafa/terraform.git'
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir('day1') {
+                    sh 'terraform init'
+                }
+            }
+        }
+        
+        stage('Terraform plan') {
+            steps {
+                dir('day1') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        
+        stage('Terraform apply') {
+            steps {
+                dir('day1') {
+                    sh 'terraform ${action} -auto-approve'
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+    }
+}
